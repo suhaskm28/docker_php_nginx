@@ -1,0 +1,32 @@
+# Build the image (default PHP version = 82)
+docker build --build-arg PHP_FPM_VER=82 -t a1:SUHASKM .
+
+# Rebuild (forcing no cache, in case of code/dep changes)
+docker build --no-cache --build-arg PHP_FPM_VER=82 -t a1:SUHASKM .
+
+# Run container in detached mode, mapping port 80
+docker run -d --name cca1_nginx_php -p 80:80 a1:SUHASKM
+
+# Alternative (for development: sync src/ folder with container)
+docker run -d --name cca1_nginx_php -p 80:80 -v ${PWD}/src:/var/www/html a1:SUHASKM
+
+# Checking running container status
+docker ps
+
+# View logs of the container
+docker logs cca1_nginx_php
+
+# Test application (health) from host
+curl http://localhost/index.php
+
+# Stop the container
+docker stop cca1_nginx_php
+
+# Restart the container
+docker start cca1_nginx_php
+
+# Remove the container (if needed before rerun)
+docker rm -f cca1_nginx_php
+
+# Remove the built image
+docker rmi a1:SUHASKM
