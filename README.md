@@ -1,7 +1,3 @@
-Here is a shorter, clean **README.md** with only the necessary details:
-
----
-
 # Nginx + PHP-FPM Docker Setup
 
 ## Overview
